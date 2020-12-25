@@ -29,7 +29,6 @@ import '@/ui/element-ui'
 
 // Animate.css
 import animated from 'animate.css'
-import axios from 'axios';
 Vue.use(animated)
 
 Vue.filter('dateformat', function(dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {

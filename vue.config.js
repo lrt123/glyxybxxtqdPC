@@ -39,9 +39,9 @@ module.exports = {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
         // target: 'http://yiban.gxun.edu.cn/bx/',
-        // target: 'https://yiban.glmc.edu.cn/bx/',
-        target: '',
-        ws: false,
+        target: 'https://yiban.glmc.edu.cn/bx/',
+        // target: '',
+        // ws: false,
         secure: true, // 如果是https接口，需要配置这个参数
         changeOrigin: true,
         pathRewrite: {

@@ -7,7 +7,10 @@ const state = {
   },
   device: 'desktop',
   size: Cookies.get('size') || 'medium',
-  config: {}
+  config: {
+    "qrcode":  "http://yiban.glmc.edu.cn/bx?eid=",
+    "bxdimg":  "http://yiban.glmc.edu.cn/bx/bxdimg",
+  }
 }
 
 const mutations = {

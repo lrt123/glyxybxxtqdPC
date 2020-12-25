@@ -4,7 +4,7 @@ import {Message} from "element-ui";
 
 // create an axios instance
 const service = axios.create({
-  // baseURL:  process.env.VUE_APP_BASE_API, // serverConfig.baseURL, // process.env.VUE_APP_BASE_API,
+  baseURL:  process.env.VUE_APP_BASE_API, // serverConfig.baseURL, // process.env.VUE_APP_BASE_API,
   // withCredentials: true,  // `withCredentials` 表示跨域请求时是否需要使用凭证
   transformRequest: [function(data) {
     return qs.stringify(data)
@@ -18,7 +18,6 @@ service.interceptors.request.use(
     return config
   },
   error => {
-    console.log(error) // for debug
     return Promise.reject(error)
   }
 )
@@ -36,7 +35,6 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log(error)
     return Promise.reject(error)
   }
 )

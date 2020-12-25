@@ -1,8 +1,8 @@
 export default {
   // 区域二维码地址
-  // qrcode: 'http://yiban.glmc.edu.cn/bx/eid=', // 某区域的某个地方的二维码id
+  qrcode: 'http://yiban.glmc.edu.cn/bx?eid=', // 某区域的某个地方的二维码id
   // 图片地址
-  // bxdimg: 'http://yiban.gxun.edu.cn/bx/bxdimg/',
+  bxdimg: 'http://yiban.glmc.edu.cn/bx/bxdimg/',
 
   // 申报详情页面路径，需要与移动端申报详情页面一致，不可更改
   declareDetailsPath: 'declare-details/:id',
