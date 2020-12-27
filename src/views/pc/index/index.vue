@@ -209,8 +209,9 @@
         })
 
         let barSeries = this.barOptions.series.data
+        let tjjson = JSON.parse(this.data.tj);
         barSeries.map(v => {
-          v.value = data[v.id]
+          v.value = tjjson[v.id]
         })
       },
       /**
