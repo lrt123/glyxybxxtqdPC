@@ -5,20 +5,20 @@
       <el-select v-model="xq" clearable placeholder="请选择校区" :disabled="showType === 'qrcode'"
                  @change="handleCampusChange">
         <el-option
-          v-for="item in campus"
-          :key="item.value"
-          :label="item.text"
-          :value="item.value">
+            v-for="item in campus"
+            :key="item.value"
+            :label="item.text"
+            :value="item.value">
         </el-option>
       </el-select>
       <template v-if="showType === 'img' || showType === 'qrcode'">
         <span class="title">区域</span>
         <el-select popper-class="main-header-select" v-model="qy" clearable filterable placeholder="请选择区域">
           <el-option
-            v-for="(item, index) in region"
-            :key="index"
-            :label="item.qy"
-            :value="item.id">
+              v-for="(item, index) in region"
+              :key="index"
+              :label="item.qy"
+              :value="item.id">
           </el-option>
         </el-select>
       </template>
@@ -36,10 +36,11 @@
       </el-button>
     </div>
 
-    <div class="main-content" ref="mainContent" @mousewheel="onMousewheel($event)">
-      <div style="position: relative;width: 100%;height: 33rem;">
+    <div class="main-content" ref="mainContent" @mousewheel="onMousewheel($event)" style="height: 100%">
+      <div style="position: relative;width: 100%;height: 100%;">
         <div class="image-tips">
-          <el-tag type="primary" style="margin-left: 15px;">
+          <!--<el-tag type="primary" style="margin-left: 15px;">-->
+          <el-tag type="primary">
             *提示：图片区域范围内鼠标右键新建区域
           </el-tag>
         </div>
@@ -53,12 +54,12 @@
         </div>
         <div class="image-wrapper" ref="imageWrapper">
           <el-image
-            :key="campusImage"
-            style="width: 100%; height: 100%;"
-            :src="campusImage"
-            fit="cover"></el-image>
+              :key="campusImage"
+              style="width: 100%; height: 100%;"
+              :src="campusImage"
+              fit="scale-down"></el-image>
         </div>
-        <!--        <div class="image-mark-copy" ref="imageMarkCopy"></div>-->
+<!--        <div class="image-mark-copy" ref="imageMarkCopy"></div>-->
         <div class="image-mark" ref="imageMark" @contextmenu="onContextmenu">
           <div
             v-for="(item, index) in regionMap"
@@ -114,16 +115,16 @@
       </div>
       <div v-if="showType === 'qrcode'" class="qrcode-content">
         <el-table
-          :key="tableKey"
-          :data="tableData"
-          :height="tableHeight"
-          border
-          :row-style="{ height: '106px' }"
-          style="width: 100%">
+            :key="tableKey"
+            :data="tableData"
+            :height="tableHeight"
+            border
+            :row-style="{ height: '106px' }"
+            style="width: 100%">
           <el-table-column
-            prop="qid"
-            label="二维码"
-            align="center">
+              prop="qid"
+              label="二维码"
+              align="center">
             <template slot-scope="{ row }">
               <svg class="qrcode" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                    @click="handleQrcodeZoomIn(row)">
@@ -133,19 +134,19 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="qrcodeurl"
-            label="二维码链接"
-            align="center">
+              prop="qrcodeurl"
+              label="二维码链接"
+              align="center">
           </el-table-column>
           <el-table-column
-            prop="xxdd"
-            label="二维码地址"
-            align="center">
+              prop="xxdd"
+              label="二维码地址"
+              align="center">
           </el-table-column>
           <el-table-column
-            label="操作"
-            width="300"
-            align="center">
+              label="操作"
+              width="300"
+              align="center">
             <template slot-scope="scope">
               <el-button @click="handleQrcodeEdit(scope.row)" type="primary" plain size="small">修改</el-button>
             </template>
@@ -154,38 +155,38 @@
       </div>
       <div v-else-if="showType === 'area'" class="qrcode-content">
         <el-table
-          :key="tableKey"
-          :data="region"
-          :height="tableHeight"
-          border
-          style="width: 100%">
+            :key="tableKey"
+            :data="region"
+            :height="tableHeight"
+            border
+            style="width: 100%">
           <el-table-column
-            prop="xq"
-            label="校区"
-            align="center">
+              prop="xq"
+              label="校区"
+              align="center">
           </el-table-column>
           <el-table-column
-            prop="qylb"
-            label="区域类别"
-            align="center"
-            :filters="filters"
-            :filter-method="filterQylb"
+              prop="qylb"
+              label="区域类别"
+              align="center"
+              :filters="filters"
+              :filter-method="filterQylb"
           >
           </el-table-column>
           <el-table-column
-            prop="qy"
-            label="区域名称"
-            align="center">
+              prop="qy"
+              label="区域名称"
+              align="center">
           </el-table-column>
           <el-table-column
-            prop="countb"
-            label="当前申报单数量"
-            align="center">
+              prop="countb"
+              label="当前申报单数量"
+              align="center">
           </el-table-column>
           <el-table-column
-            label="操作"
-            width="300"
-            align="center">
+              label="操作"
+              width="300"
+              align="center">
             <template slot-scope="{ row }">
               <el-button @click="viewQrcode(row)" type="primary" plain size="small">查看二维码</el-button>
             </template>
@@ -196,31 +197,31 @@
 
     <div v-if="showType === 'qrcode'" class="main-footer">
       <pagination
-        :total="qrcode.length"
-        :paging="paging"
-        @pagination="handleSizeChange">
+          :total="qrcode.length"
+          :paging="paging"
+          @pagination="handleSizeChange">
       </pagination>
     </div>
 
     <vue-context-menu
-      class="context-menu"
-      v-if="showType === 'img'"
-      :target="$refs.imageMark"
-      :show="contextMenuVisible"
-      @update:show="(show) => contextMenuVisible = show">
+        class="context-menu"
+        v-if="showType === 'img'"
+        :target="$refs.imageMark"
+        :show="contextMenuVisible"
+        @update:show="(show) => contextMenuVisible = show">
       <a @click="addRegion">新建区域</a>
     </vue-context-menu>
 
     <!--新增区域-->
     <el-dialog
-      title="新建区域"
-      :visible.sync="dialogVisibleAdd"
-      class="jdr-add-dialog"
-      width="450px"
-      center
-      :modal="true"
-      :close-on-click-modal="false"
-      append-to-body
+        title="新建区域"
+        :visible.sync="dialogVisibleAdd"
+        class="jdr-add-dialog"
+        width="450px"
+        center
+        :modal="true"
+        :close-on-click-modal="false"
+        append-to-body
     >
       <div>
         <el-form :model="params" :rules="rules" ref="ruleForm" label-position="right" label-width="100px" status-icon>
@@ -230,10 +231,10 @@
           <el-form-item label="区域类别" prop="qylb">
             <el-select v-model="params.qylb" clearable placeholder="请选择区域类别">
               <el-option
-                v-for="(item, index) in qylb"
-                :key="index"
-                :label="item"
-                :value="item">
+                  v-for="(item, index) in qylb"
+                  :key="index"
+                  :label="item"
+                  :value="item">
               </el-option>
             </el-select>
           </el-form-item>
@@ -250,14 +251,14 @@
 
     <!--修改区域-->
     <el-dialog
-      title="修改区域"
-      :visible.sync="dialogVisibleUpdate"
-      class="jdr-add-dialog"
-      width="450px"
-      center
-      :modal="false"
-      append-to-body
-      :close-on-click-modal="false"
+        title="修改区域"
+        :visible.sync="dialogVisibleUpdate"
+        class="jdr-add-dialog"
+        width="450px"
+        center
+        :modal="false"
+        append-to-body
+        :close-on-click-modal="false"
     >
       <div>
         <el-form :model="updateParams" :rules="rules" ref="ruleForm1" label-position="center" label-width="100px"
@@ -268,10 +269,10 @@
           <el-form-item label="区域类别" prop="qylb">
             <el-select v-model="updateParams.qylb" clearable placeholder="请选择区域类别">
               <el-option
-                v-for="(item, index) in qylb"
-                :key="index"
-                :label="item"
-                :value="item">
+                  v-for="(item, index) in qylb"
+                  :key="index"
+                  :label="item"
+                  :value="item">
               </el-option>
             </el-select>
           </el-form-item>
@@ -293,15 +294,15 @@
 
     <!--订正位置-->
     <el-dialog
-      :title="dialogVisiblePosiTitle"
-      :visible.sync="dialogVisiblePosi"
-      class="dialog-posi"
-      width="1300px"
-      top="50px"
-      center
-      append-to-body
-      :close-on-click-modal="false"
-      style="z-index: 10001"
+        :title="dialogVisiblePosiTitle"
+        :visible.sync="dialogVisiblePosi"
+        class="dialog-posi"
+        width="1300px"
+        top="50px"
+        center
+        append-to-body
+        :close-on-click-modal="false"
+        style="z-index: 10001"
     >
       <div class="el-dialog-div">
         <image-scale :img="campusImage" :markPosi="markPosi" @change="setMarkPosi"></image-scale>
@@ -314,14 +315,14 @@
 
     <!--新增二维码-->
     <el-dialog
-      title="新增二维码"
-      :visible.sync="dialogVisibleQrcodeAdd"
-      class="add-dialog"
-      width="450px"
-      center
-      :modal="false"
-      append-to-body
-      :close-on-click-modal="false"
+        title="新增二维码"
+        :visible.sync="dialogVisibleQrcodeAdd"
+        class="add-dialog"
+        width="450px"
+        center
+        :modal="false"
+        append-to-body
+        :close-on-click-modal="false"
     >
       <div>
         <el-form :model="addQrcodeParams" :rules="qrcodeRules" ref="addQrcodeForm" label-position="top"
@@ -346,14 +347,14 @@
 
     <!--修改二维码-->
     <el-dialog
-      title="修改二维码"
-      :visible.sync="dialogVisibleQrcodeUpdate"
-      class="add-dialog"
-      width="450px"
-      center
-      :modal="false"
-      append-to-body
-      :close-on-click-modal="false"
+        title="修改二维码"
+        :visible.sync="dialogVisibleQrcodeUpdate"
+        class="add-dialog"
+        width="450px"
+        center
+        :modal="false"
+        append-to-body
+        :close-on-click-modal="false"
     >
       <div>
         <el-form :model="updateQrcodeParams" :rules="qrcodeRules" ref="updateQrcodeForm" label-position="top"
@@ -378,12 +379,12 @@
 
     <!--二维码预览-->
     <el-dialog
-      title="二维码预览"
-      :visible.sync="dialogVisibleQrcodeZoomIn"
-      class="preview-dialog"
-      width="400px"
-      :modal="false"
-      center
+        title="二维码预览"
+        :visible.sync="dialogVisibleQrcodeZoomIn"
+        class="preview-dialog"
+        width="400px"
+        :modal="false"
+        center
     >
       <div class="xxdd">地址：{{qrcodeXxdd}}</div>
       <div class="qrcodeZoomIn" id="qrcodeZoomIn"></div>
@@ -391,24 +392,24 @@
 
     <!--报修单详情-->
     <bxd-dialog
-      :visible.sync="dialogVisibleBxd"
-      :bxdInfo="bxdInfo"
+        :visible.sync="dialogVisibleBxd"
+        :bxdInfo="bxdInfo"
     ></bxd-dialog>
 
   </div>
 </template>
 
 <script>
-  import {AdminServlet, getRegion, getBxdDetail} from '@/api/qygl'
-  import {getDeclare} from '@/api/bxd';
-  import {copyObj, message} from '@/utils/common'
+  import { AdminServlet, getRegion, getBxdDetail } from '@/api/qygl'
+  import { getDeclare } from '@/api/bxd';
+  import { copyObj, message } from '@/utils/common'
   import QRCode from 'qrcodejs2' // 二维码插件
   import config from '@/config/index'
   import BxdDialog from '@/components/repairDetailDialog'
   import ImageScale from '@/components/ImageScale'
   import Pagination from '@/components/Pagination'
-  import {component as VueContextMenu} from '@xunlei/vue-context-menu'
-  import {mapGetters} from 'vuex'
+  import { component as VueContextMenu } from '@xunlei/vue-context-menu'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'Region', // 区域管理
@@ -511,12 +512,12 @@
           xxdd: '' // 二维码张贴地点
         },
         rules: {
-          qy: {required: true, message: '必填项', trigger: ['blur', 'change']},
-          qylb: {required: true, message: '必填项', trigger: ['blur', 'change']}
+          qy: { required: true, message: '必填项', trigger: ['blur', 'change'] },
+          qylb: { required: true, message: '必填项', trigger: ['blur', 'change'] }
         },
         qrcodeRules: {
-          xxdd: {required: true, message: '必填项', trigger: ['blur', 'change']},
-          qid: {required: true, message: '必填项', trigger: ['blur', 'change']}
+          xxdd: { required: true, message: '必填项', trigger: ['blur', 'change'] },
+          qid: { required: true, message: '必填项', trigger: ['blur', 'change'] }
         },
         markPosi: {
           x: '',
@@ -544,7 +545,7 @@
       },
       filters() {
         return config.area.map(v => {
-          return {text: v, value: v}
+          return { text: v, value: v }
         })
       }
     },
@@ -798,6 +799,7 @@
             */
           zoom += ev.wheelDelta / 500
 
+          console.log(zoom.toFixed(0))
           /* 最小范围的图片缩放尺，不限制最大范围 */
           if (zoom >= .5) {
             dom1.style.transform = 'scale(' + zoom + ')'
@@ -805,6 +807,7 @@
 
             this.$nextTick(() => {
               let style = getComputedStyle(dom1)
+              console.log(style.width, style.height, style.zoom)
             })
             // this.regionMap.map(v => {
             //   v.x *= zoom
@@ -1031,7 +1034,7 @@
        */
       handleQrcodeZoomIn(row) {
         this.dialogVisibleQrcodeZoomIn = true
-        let {qrcodeurl, xxdd} = row
+        let { qrcodeurl, xxdd } = row
         this.$nextTick(() => {
           this.qrcodeXxdd = xxdd
           if (this.qrcodeZoomIn) {
