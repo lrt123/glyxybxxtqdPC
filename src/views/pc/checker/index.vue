@@ -60,7 +60,7 @@
           <template slot-scope="{ row }">
             <el-button type="success" size="small" plain @click="getQdb(row)">查看签到表</el-button>
             <el-button type="primary" size="small" plain @click="updateJdr(row)">修改信息</el-button>
-            <el-popconfirm title="确定删除吗？" placement="top" @onConfirm="deleteJdr(row)">
+            <el-popconfirm title="确定删除吗？" placement="top" v-on:confirm="deleteJdr(row)">
               <el-button type="danger" plain size="small" slot="reference" style="margin-left: 10px;">删除</el-button>
             </el-popconfirm>
           </template>

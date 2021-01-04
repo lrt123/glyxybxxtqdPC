@@ -10,6 +10,8 @@ const state = {
   config: {
     "qrcode":  "http://yiban.glmc.edu.cn/bx?eid=",
     "bxdimg":  "http://yiban.glmc.edu.cn/bx/bxdimg",
+    "indextime": 60,
+    "qygltime": 60,
   }
 }
 

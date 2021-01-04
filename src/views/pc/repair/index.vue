@@ -234,8 +234,10 @@
 
               <el-popconfirm
                 title="确定删除吗？"
+                cancelButtonText="取消"
+                confirmButtonText="确定"
                 placement="top"
-                @onConfirm="onDeleteOrder(scope.row)"
+                v-on:confirm="onDeleteOrder(scope.row)"
               >
                 <el-button slot="reference" type="danger" size="small" icon="el-icon-delete" plain>删除工单</el-button>
               </el-popconfirm>

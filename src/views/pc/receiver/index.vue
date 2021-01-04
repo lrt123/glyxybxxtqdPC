@@ -112,7 +112,7 @@
             <el-popconfirm
               title="确定删除吗？"
               placement="top"
-              @onConfirm="row.dqds == 0 && deleteJdr(row)"
+              v-on:confirm="row.dqds == 0 && deleteJdr(row)"
             >
               <el-button :type="row.dqds > 0 ? 'info' : 'danger'" plain size="small" :disabled="row.dqds > 0"
                          slot="reference" style="margin-left: 10px;">删除
