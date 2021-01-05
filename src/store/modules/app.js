@@ -12,6 +12,9 @@ const state = {
     "bxdimg":  "http://yiban.glmc.edu.cn/bx/bxdimg",
     "indextime": 60,
     "qygltime": 60,
+    "shytime": 60,
+    "bxdtime": 60,
+    "jdrtime": 60
   }
 }
 
