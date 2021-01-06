@@ -334,10 +334,10 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <!--未派单和维修中可以修改审核员1-->
+          <!--未派单和已派单可以修改审核员1-->
           <el-form-item label="审核员1" prop="shy1">
             <el-select v-model="modifyParams.shy1" filterable clearable placeholder="请选择审核员1"
-                       :disabled="modifyParams.state === 2 || modifyParams.state === 3"
+                       :disabled="modifyParams.state !== 0 && modifyParams.state !== 1"
             >
               <el-option
                 v-for="item of shyData"
@@ -347,10 +347,10 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <!--未派单和维修中可以修改审核员2-->
+          <!--未派单和已派单可以修改审核员2-->
           <el-form-item label="审核员2" prop="shy2">
             <el-select v-model="modifyParams.shy2" filterable clearable placeholder="请选择审核员2"
-                       :disabled="modifyParams.state === 2 || modifyParams.state === 3"
+                       :disabled="modifyParams.state !== 0 && modifyParams.state !== 1"
             >
               <el-option
                 v-for="item of shyData"
@@ -360,20 +360,20 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <!--工单状态为4（已验收）-->
+          <!--不允许修改耗材-->
           <el-form-item label="耗材使用" prop="hc">
-            <el-input type="textarea" v-model="modifyParams.hc" :disabled="modifyParams.state !== 4 || modifyParams.state !== 2"></el-input>
+            <el-input type="textarea" v-model="modifyParams.hc" :disabled="modifyParams.state !== 6"></el-input>
           </el-form-item>
-          <!--工单状态为2（已验收）-->
+          <!--工单状态为2（已维修）-->
           <el-form-item label="维修工时" prop="gs">
             <el-input-number v-model="modifyParams.gs" :precision="2" :step="0.1" :min="0"
-                             :disabled="modifyParams.state !== 4"></el-input-number>
+                             :disabled="modifyParams.state !== 2 && modifyParams.state !== 4"></el-input-number>
           </el-form-item>
           <!--工单状态为4（已验收）才有评价，维修中和已撤回应该是没有评价的-->
           <el-form-item label="评价星级" prop="pjvalue">
             <el-rate
               v-model="modifyParams.pjvalue"
-              :disabled="modifyParams.state !== 4 || modifyParams.state !== 2"
+              :disabled="modifyParams.state !== 6"
               show-text
               :max="evaluate.length"
               :texts="evaluate"
@@ -382,7 +382,7 @@
             >
             </el-rate>
           </el-form-item>
-          <!--工单状态为4（已验收）才有评价，维修中和已撤回应该是没有评价的-->
+          <!--工单状态为4（已验收）才有评价，维修中和已撤回应该是不能评价的-->
           <el-form-item label="评价内容" prop="pjnr">
             <el-input type="textarea" v-model="modifyParams.pjnr" :disabled="modifyParams.state !== 4 "></el-input>
           </el-form-item>
@@ -402,7 +402,7 @@
 <script>
   import { AdminServlet } from '@/api/qygl'
   import { BxdServlet, getArea, getDeclare } from '@/api/bxd'
-  import { getJdr, getChecker } from '@/api/jdr'
+  import { getJdr, getChecker, getOptimalJdr } from '@/api/jdr'
   import config from '@/config'
   import Pagination from '@/components/Pagination'
   import bxdDialog from '@/components/repairDetailDialog'
@@ -468,6 +468,7 @@
         tableHeight: null, // 表格高度，获取内容高度
         tableData: [], // 处理后的表格数据
         jdrData: [], // 所有接单人数据
+        optimalJdrData: [], //合适当前订单的接单人
         jdrDataRadio: [], // 指派或修改接单人数据
         jdrId: null, // 选中接单人id
         shyData: [], // 审核员数据
@@ -476,6 +477,10 @@
           xm: '', // 接单人姓名
           sj: '', // 接单人手机
           state: '' // 状态
+        },
+        getOptimalJdrParam: {
+          op: "selOptimaljdrPC",
+          bxlb: ''
         },
         bxdId: null, // 报修单id
         jdrSearchVal: '', // 搜索关键词
@@ -577,6 +582,20 @@
         })
       },
       /**
+       * 获取合适当前订单的接单人列表
+       */
+      getOptimalJdrList(row) {
+        alert(row.bxlb);
+        this.getOptimalJdrParam.bxlb = row.bxlb;
+        getOptimalJdr(this.getOptimalJdrParam).then(res => {
+          if (res.obj.jlist) {
+            this.optimalJdrData = res.obj.jlist
+          } else {
+            message(res)
+          }
+        })
+      },
+      /**
        * 获取审核员列表
        */
       getShyList() {
@@ -616,6 +635,7 @@
        * @param row
        */
       onModifyOrder(row) {
+        console.log(row);
         this.dialogVisibleModify = true
         this.modifyParams['bid'] = row.id
         this.modifyParams['jid'] = row.jid
